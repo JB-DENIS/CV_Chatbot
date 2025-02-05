@@ -34,7 +34,7 @@ RUN curl -fsSL https://github.com/qdrant/qdrant/releases/latest/download/qdrant-
     && chmod +x /usr/local/bin/qdrant
 
 # Étape 9 : Exposition des ports nécessaires
-EXPOSE 80 6333
+EXPOSE 8080 6333
 
 # Étape 10 : Changement de l'utilisateur pour 'user'
 USER user
