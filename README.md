@@ -1,8 +1,8 @@
 ---
-title: CV
+title: CV_JBDENIS
 emoji: 👁
 colorFrom: indigo
-colorTo: pink
+colorTo: red
 sdk: docker
 pinned: false
 license: unlicense

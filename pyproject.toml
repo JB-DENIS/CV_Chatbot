@@ -1,0 +1,144 @@
+[project]
+name = "kzs-rag"
+version = "0.1.0"
+description = "RAG project by kaizen"
+readme = "readme.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "pydantic-settings>=2.6.1",
+]
+
+[dependency-groups]
+frontend = [
+    "streamlit>=1.40.1",
+]
+
+backend = [
+    "docling>=2.8.1",
+    "fastapi[standard]>=0.115.4",
+    "langchain-community>=0.3.8",
+    "langchain-openai>=0.2.10",
+    "langchain-qdrant>=0.2.0",
+    "langgraph>=0.2.53",
+    "qdrant-client>=1.12.1",
+    "sentence-transformers>=3.3.1",
+    "openparse>=0.7.0",
+    # "fpdf>=1.7.2",
+    "fpdf2>=2.8.1",
+]
+
+dev = [
+    "mypy>=1.13.0",
+    "pytest>=8.3.3",
+    "ruff>=0.7.1",
+    "pytest-forked>=1.6.0",
+    "pytest-gitignore>=1.3",
+    "pytest-html>=4.1.1",
+    "pytest-xdist>=3.6.1",
+    "pandas>=2.2.3",
+    "pandas-stubs>=2.2.3.241009",
+    # "gitlabci-local>=10.2.0",
+    "plotly>=5.24.1",
+    "ipykernel>=6.29.5",
+]
+
+[tool.ruff]
+target-version = "py312"
+fix = false
+line-length = 88  # Same as Black
+exclude = [
+    ".git",
+    ".git-rewrite",
+    ".mypy_cache",
+    ".pytype",
+    ".ruff_cache",
+    "__pypackages__",
+    ".venv"
+]
+
+[tool.ruff.lint]
+fixable = ["ALL"] # Allow autofix for all enabled rules
+unfixable = []
+# Rule selection
+select = [
+ "F", "E", "C90", "N", "D", "UP", "YTT", "ANN", "ASYNC", "S", "BLE",
+ "FBT", "B", "A", "C4", "DTZ", "T10", "DJ", "EXE", "FA", "ISC",
+ "ICN", "G", "INP", "PIE", "PYI", "PT", "Q", "RSE", "RET", "SLF", "SLOT", "SIM",
+ "TID", "TCH", "INT", "ARG", "PTH", "TD", "FIX", "ERA", "PD", "PGH", "PL", "TRY",
+ "FLY", "NPY", "AIR", "PERF", "RUF", "T20", "I"
+]
+# Not selected:
+# - CPY (flake8-copyright) no need of a copyright per file
+# - COM (flake8-commas) handled by ruff
+# - EM  (flake8-errmsg) too little gain for the cost
+
+ignore = [
+    "D203", # 1 blank line required before class docstring
+    "D212", # Multi-line docstring summary should start at the first line
+    "TRY003", # Avoid specifying long messages outside the exception class
+    "ANN101", # Missing type annotation for self in method
+    "ANN102", # Missing type annotation for cls in classmethod
+    "G004", # Logging statement uses f-string
+    "PD013", # `.melt` is preferred to `.stack`; provides same functionality (WRONG!)
+]
+
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["D104"] # Ignore "missing docstring in public package" in all `__init__.py` files
+"test/**/*.py" = [  # Ignore rules necessary for tests
+    "INP001", # Ignore "File is part of an implicit namespace package. Add an `__init__.py`."
+    "S101", # Ignore "Use of `assert` detected" because pytest relies on assert
+    "N802", # Ignore "Function name should be lowercase" because test function are non-standard
+#     "ARG", # Unused function args -> fixtures nevertheless are functionally relevant...
+#     "FBT", # Don't care about booleans as positional arguments in tests, e.g. via @pytest.mark.parametrize()
+    "PLR2004", # Ignore "Magic value used in comparison"
+#     "S311", # Standard pseudo-random generators are not suitable for cryptographic purposes
+]
+
+
+[tool.ruff.lint.flake8-annotations]
+mypy-init-return = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+
+[tool.mypy]
+python_version = "3.12"
+exclude = [
+]
+
+
+[[tool.mypy.overrides]]
+module = [""
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+
+addopts = [
+    "--import-mode=prepend",
+    "-vv",
+    "--exitfirst",
+    "--capture=no",
+    "--showlocals",
+    # "--forked",
+    # "--cov-config=.coverage/coveragerc",
+    # "--cov=src",
+    # "--cov=app",
+    # "--cov-report=html",
+    "--html=.pytest_cache/report.html",
+]
+
+python_files = "*.py"
+
+norecursedirs = [
+    "dist",
+    "doc",
+    "__pycache__",
+]
+
+[tool.pymarkdown]
+# plugins.line-length.line_length = 88
+# plugins.ul-style.style = "sublist"
+# extensions.front-matter.enabled = true
