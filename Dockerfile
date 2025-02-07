@@ -1,9 +1,8 @@
-# Étape 1 : Image de base et installation des dépendances système
 FROM python:3.12-slim as base
 
+# Étape 1 : Installation des dépendances système
 RUN apt-get update && apt-get install -y \
     nginx \
-    supervisor \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
@@ -20,7 +19,6 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 # Étape 5 : Copie des fichiers de configuration avec les permissions appropriées
 COPY --chown=user:user nginx.conf /etc/nginx/nginx.conf
-COPY --chown=user:user supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Étape 6 : Copie des fichiers de l'application avec les permissions appropriées
 COPY --chown=user:user . $HOME/app
@@ -33,11 +31,15 @@ RUN uv sync --no-dev --frozen --no-cache
 RUN curl -fsSL https://github.com/qdrant/qdrant/releases/latest/download/qdrant-linux-x86_64 -o /usr/local/bin/qdrant \
     && chmod +x /usr/local/bin/qdrant
 
-# Étape 9 : Exposition des ports nécessaires
-EXPOSE 8080 6333
+# Étape 9 : Copie du script d'initialisation
+COPY --chown=user:user start_services.sh /usr/local/bin/start_services.sh
+RUN chmod +x /usr/local/bin/start_services.sh
 
-# Étape 10 : Changement de l'utilisateur pour 'user'
+# Étape 10 : Exposition des ports nécessaires
+EXPOSE 8080 6333 8000 8501
+
+# Étape 11 : Changement de l'utilisateur pour 'user'
 USER user
 
-# Étape 11 : Lancement de l'application avec supervisord
-CMD ["supervisord", "-n", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+# Étape 12 : Définition du point d'entrée
+ENTRYPOINT ["/usr/local/bin/start_services.sh"]
