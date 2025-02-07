@@ -11,7 +11,7 @@ from app.settings import settings
 
 
 try:
-    client = QdrantClient(url=settings.qdrant_url)
+    client = QdrantClient(":memory:")  # (url=settings.qdrant_url)
 
 except Exception as e:
     raise Exception(f"Error connecting to Qdrant: {e}")
@@ -65,7 +65,8 @@ def get_vector_store(embeddings, collection_name):
         if collection_info.status != CollectionStatus.GREEN:
             raise Exception(
                 f"Collection '{collection_name}' is not active (status: {
-                    collection_info.status})."
+                    collection_info.status
+                })."
             )
 
         return QdrantVectorStore(
@@ -74,14 +75,16 @@ def get_vector_store(embeddings, collection_name):
 
     except UnexpectedResponse as e:
         raise Exception(
-            f"Collection '{
-                collection_name}' does not exist or could not be accessed: {e}"
+            f"Collection '{collection_name}' does not exist or could not be accessed: {
+                e
+            }"
         )
 
     except Exception as e:
         raise Exception(
             f"An error occurred while retrieving the vector store for '{
-                collection_name}': {e}"
+                collection_name
+            }': {e}"
         )
 
 
@@ -105,7 +108,9 @@ def get_retriever(vector_store: VectorStore) -> VectorStoreRetriever:
             "The provided vector store does not have an 'as_retriever' method."
         )
 
-    return vector_store.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.7})
+    return vector_store.as_retriever(
+        search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.7}
+    )
 
 
 def get_ensemble_retriever(

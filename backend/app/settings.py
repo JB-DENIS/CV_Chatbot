@@ -9,12 +9,7 @@ class Settings(BaseSettings):
     retrieval_top_k: int = 3
     temperature: float = 0.2
     max_length: int = 2048
-    hf_token: str = os.getenv("HF_TOKEN")
-
-    if not hf_token:
-        raise ValueError(
-            "ERREUR : Le token Hugging Face (HF_TOKEN) n'est pas défini ! Ajoute-le dans les variables d'environnement Hugging Face Spaces."
-        )
+    hf_token: str  # = os.getenv("HF_TOKEN")
 
     embedding_model_name: str = "sentence-transformers/sentence-t5-xxl"
     # qdrant_url: str = "http://qdrant:6333"
@@ -25,6 +20,11 @@ class Settings(BaseSettings):
     user_collection_name: str = "User_Ademe_collection"
     doc_collection_name: str = "Doc_Ademe_collection"
     provider: str = "hf_api"
+
+    # if not hf_token:
+    #     raise ValueError(
+    #         "ERREUR : Le token Hugging Face (HF_TOKEN) n'est pas défini ! Ajoute-le dans les variables d'environnement Hugging Face Spaces."
+    #     )
 
 
 settings = Settings()

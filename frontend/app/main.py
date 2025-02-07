@@ -7,12 +7,12 @@ from settings import settings
 
 
 BASE_DIR = str(Path(__file__).resolve().parent)
-# API_URL_CHAT = "http://localhost:8088/chatting/chat"
-# API_URL_EMBEDDING = "http://localhost:8088/embeddings/embedded"
-# API_URL_SUM = "http://localhost:8088/chatting/summary"
-API_URL_CHAT = "http://localhost/api/chatting/chat"
-API_URL_EMBEDDING = "http://localhost/api/embeddings/embedded"
-API_URL_SUM = "http://localhost/api/chatting/summary"
+API_URL_CHAT = "http://localhost:8088/chatting/chat"
+API_URL_EMBEDDING = "http://localhost:8088/embeddings/embedded"
+API_URL_SUM = "http://localhost:8088/chatting/summary"
+# API_URL_CHAT = "http://localhost/api/chatting/chat"
+# API_URL_EMBEDDING = "http://localhost/api/embeddings/embedded"
+# API_URL_SUM = "http://localhost/api/chatting/summary"
 
 st.set_page_config(
     page_title="CV_JBDENIS",
