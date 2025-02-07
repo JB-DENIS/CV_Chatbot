@@ -4,16 +4,26 @@ import os
 
 
 def start_backend():
-    os.chdir("/home/user/app/backend")
-    subprocess.run(["uv", "sync"])
+    os.chdir("./backend")
+    subprocess.run(["uv", "sync", "--group={backend}"])
     subprocess.run(
-        ["uv", "run", "fastapi", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+        [
+            "uv",
+            "run",
+            "fastapi",
+            "run",
+            "app/main.py",
+            "--host",
+            "0.0.0.0",
+            "--port",
+            "8088",
+        ]
     )
 
 
 def start_frontend():
-    os.chdir("/home/user/app/frontend")
-    subprocess.run(["uv", "sync"])
+    os.chdir("./frontend")
+    subprocess.run(["uv", "sync", "--group={frontend}"])
     subprocess.run(
         [
             "uv",
@@ -22,7 +32,7 @@ def start_frontend():
             "run",
             "app/main.py",
             "--server.port",
-            "8501",
+            "8888",
             "--server.address",
             "0.0.0.0",
         ]
