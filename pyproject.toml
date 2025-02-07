@@ -5,6 +5,7 @@ description = "RAG project by kaizen"
 readme = "readme.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+    "langchain-huggingface>=0.1.2",
     "pydantic-settings>=2.6.1",
 ]
 
