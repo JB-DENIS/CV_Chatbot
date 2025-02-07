@@ -14,7 +14,7 @@ def start_backend():
             "run",
             "app/main.py",
             "--host",
-            "0.0.0.0",
+            "127.0.0.1",
             "--port",
             "8088",
         ]
@@ -31,10 +31,10 @@ def start_frontend():
             "streamlit",
             "run",
             "app/main.py",
-            "--server.port",
-            "8888",
-            "--server.address",
-            "0.0.0.0",
+            # "--server.port",
+            # "8888",
+            # "--server.address",
+            # "0.0.0.0",
         ]
     )
 
