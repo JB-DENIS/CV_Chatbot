@@ -5,16 +5,9 @@ description = "RAG project by kaizen"
 readme = "readme.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+    "streamlit>=1.40.1",
     "langchain-huggingface>=0.1.2",
     "pydantic-settings>=2.6.1",
-]
-
-[dependency-groups]
-frontend = [
-    "streamlit>=1.40.1",
-]
-
-backend = [
     "docling>=2.8.1",
     "fastapi[standard]>=0.115.4",
     "langchain-community>=0.3.8",
@@ -26,22 +19,6 @@ backend = [
     "openparse>=0.7.0",
     # "fpdf>=1.7.2",
     "fpdf2>=2.8.1",
-]
-
-dev = [
-    "mypy>=1.13.0",
-    "pytest>=8.3.3",
-    "ruff>=0.7.1",
-    "pytest-forked>=1.6.0",
-    "pytest-gitignore>=1.3",
-    "pytest-html>=4.1.1",
-    "pytest-xdist>=3.6.1",
-    "pandas>=2.2.3",
-    "pandas-stubs>=2.2.3.241009",
-    # "gitlabci-local>=10.2.0",
-    "plotly>=5.24.1",
-    "ipykernel>=6.29.5",
-]
 
 [tool.ruff]
 target-version = "py312"
