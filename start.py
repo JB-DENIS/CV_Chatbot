@@ -5,7 +5,7 @@ import os
 
 def start_backend():
     os.chdir("./backend")
-    subprocess.run(["uv", "sync"])
+    # subprocess.run(["uv", "sync"])
     subprocess.run(
         [
             "uv",
@@ -23,7 +23,7 @@ def start_backend():
 
 def start_frontend():
     os.chdir("./frontend")
-    subprocess.run(["uv", "sync"])
+    # subprocess.run(["uv", "sync"])
     subprocess.run(
         [
             "uv",
